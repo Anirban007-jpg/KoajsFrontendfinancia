@@ -151,7 +151,7 @@ export default function Navbar() {
                 : 'text-white hover:bg-white/10'
             }`}
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X color="black" className="h-6 w-6" /> : <Menu color="black" className="h-6 w-6" />}
           </button>
         </div>
       </div>
@@ -170,17 +170,18 @@ export default function Navbar() {
               <div className="space-y-4">
                 {navItems.map((item) => (
                   <div key={item.name}>
-                    <button
+                    <Link
                       onClick={() => item.dropdown && handleDropdownToggle(item.name)}
-                      className="flex items-center justify-between w-full px-4 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors duration-200"
+                      href={item.href}
+                      className="flex items-center justify-between w-full px-4 py-3 text-left text-black bg-transparent hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors duration-200"
                     >
                       <span className="font-medium">{item.name}</span>
                       {item.dropdown && (
-                        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${
+                        <ChevronDown color='black' className={`h-4 w-4 transition-transform duration-200 ${
                           activeDropdown === item.name ? 'rotate-180' : ''
                         }`} />
                       )}
-                    </button>
+                    </Link>
 
                     {/* Mobile Dropdown */}
                     {item.dropdown && (
