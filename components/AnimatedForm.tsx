@@ -166,7 +166,17 @@ const AnimatedSingleStepForm = () => {
                         />
                     </motion.div>
 
-                    <div >
+                    <motion.div variants={{
+                        hidden: { y: 20, opacity: 0 },
+                        visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }
+                        }
+                    }} >
                         <label htmlFor="email" className="block text-gray-800 text-lg font-medium mb-2">
                             Email
                         </label>
@@ -178,7 +188,7 @@ const AnimatedSingleStepForm = () => {
                             placeholder="E.g., john.doe@example.com"
                             className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
                         />
-                    </div>
+                    </motion.div>
 
                     <motion.div variants={{
                         hidden: { y: 20, opacity: 0 },
@@ -305,7 +315,7 @@ const AnimatedSingleStepForm = () => {
                         <motion.p
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-red-500 text-sm flex items-center gap-1"
+                            className="text-red-500 font-bold text-sm flex items-center gap-1"
                         >
                             <AlertCircle className="w-4 h-4" />
                             {error}

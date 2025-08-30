@@ -229,10 +229,11 @@ export default function Navbar() {
                 <div className="pt-6 space-y-3">
                   <Button
                     variant="outline"
-                    className="w-full justify-center text-black border-gray-300 text-gray-700 hover:bg-gray-50"
+                   
+                    className="w-full justify-center text-black border-gray-300  hover:bg-gray-50"
                     onClick={() => setIsOpen(false)}
                   >
-                    Sign In
+                    <Link href="/login"> Sign In </Link>
                   </Button>
                 
                 </div>
