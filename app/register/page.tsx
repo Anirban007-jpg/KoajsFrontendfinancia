@@ -3,7 +3,7 @@
 
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
-import AnimatedSingleStepForm from '@/components/AnimatedForm';
+import AnimatedSingleStepForm from '@/components/Forms/AnimatedForm';
 
 
 const RegisterPage = () => {

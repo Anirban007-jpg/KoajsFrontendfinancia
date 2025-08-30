@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { Code, Palette, Rocket, Users, Award, Heart, Mail, Phone, MapPin, Clock } from 'lucide-react';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
-import ContactForm from '@/components/ContactForm';
+import ContactForm from '@/components/Forms/ContactForm';
 
 const ContactPage = () => {
     const contactInfo = [

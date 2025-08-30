@@ -80,7 +80,7 @@ export default function Navbar() {
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all ${item.href === usePathname()? `bg-black/10`: ``} duration-300 ${
                     isScrolled 
                       ? 'text-black hover:text-blue-600 hover:bg-blue-50 bg-black/10' 
-                      : 'text-black text-black hover:text-white hover:bg-black/10'
+                      : 'text-black hover:text-white hover:bg-black/10'
                   }`}
                   onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
                   onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
