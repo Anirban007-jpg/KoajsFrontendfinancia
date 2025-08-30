@@ -42,6 +42,7 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "axios": "^1.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -52,6 +53,8 @@
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "input-otp": "^1.2.4",
+    "isomorphic-fetch": "^3.0.0",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.446.0",
     "next": "^13.5.1",
     "next-themes": "^0.3.0",
@@ -69,5 +72,10 @@
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
     "zod": "^4.1.4"
+  },
+  "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.39",
+    "@types/js-cookie": "^3.0.6",
+    "encoding": "^0.1.13"
   }
 }

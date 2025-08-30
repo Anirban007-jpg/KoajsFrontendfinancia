@@ -131,10 +131,10 @@ export default function Navbar() {
             
               href="/login"
        
-              className={`transition-colors duration-300 ${
+              className={`transition-colors duration-300 text-black font-bold ${
                 isScrolled 
                   ? 'text-gray-700 hover:text-blue-600 hover:bg-blue-50' 
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
+                  : 'text-black hover:text-blck hover:bg-white/10'
               }`}
             >
               Sign In
@@ -229,7 +229,7 @@ export default function Navbar() {
                 <div className="pt-6 space-y-3">
                   <Button
                     variant="outline"
-                    className="w-full justify-center border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="w-full justify-center text-black border-gray-300 text-gray-700 hover:bg-gray-50"
                     onClick={() => setIsOpen(false)}
                   >
                     Sign In

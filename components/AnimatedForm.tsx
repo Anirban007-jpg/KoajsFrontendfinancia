@@ -2,7 +2,13 @@
 
 'use client';
 
+
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { useState } from 'react';
+import { Signup } from '@/actions/auth';
+import { AlertCircle } from 'lucide-react';
 
 // Defines the content for the single step of the form.
 const formContent = {
@@ -19,8 +25,59 @@ const formContent = {
  * and its internal contents, attractive borders, and well-designed input fields.
  */
 const AnimatedSingleStepForm = () => {
+
+    const router = useRouter();
+
+    const [values, setValues] = useState({
+        PAN_No: '',
+        Email: '',
+        Address: '',
+        Name: '',
+        role: '',
+        password: '',
+        error: '',
+        success: ''
+    })
+
+    const [loading, setLoading] = useState(false);
+
+    const { PAN_No, Email, Address, Name, role, password, error, success } = values;
+
+    const handleChangeInput = (name: string) => (e: { target: { value: any; }; }) => {
+        setValues({ ...values, error: '', [name]: e.target.value })
+    }
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        setValues({ ...values, error: '' });
+        const individual = { PAN_No, Email, Address, Name, role, password };
+
+        Signup(individual).then(data => {
+
+            if (data.details) {
+                setValues({ ...values, error: JSON.stringify(data.details[0]) });
+                setLoading(false);
+                console.log(data.details[0]);
+            } else {
+                setValues({
+                    PAN_No: '',
+                    Email: '',
+                    Address: '',
+                    Name: '',
+                    role: '',
+                    password: '',
+                    error: '',
+                    success: data.message
+                })
+                setLoading(false);
+                console.log(data);
+            }
+
+        })
+    }
+
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-700 via-pink-500 to-red-500 p-4 sm:p-6 md:p-8">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-300 via-gray-200 to-red-500 p-4 sm:p-6 md:p-8">
             {/* motion.div acts as the animated container for the single step */}
             <motion.div
                 variants={{
@@ -43,10 +100,9 @@ const AnimatedSingleStepForm = () => {
                 }} // Use formVariants for the main container
                 initial="hidden"
                 animate="visible"
-                className="bg-white p-8 sm:p-10 rounded-3xl shadow-4xl max-w-sm sm:max-w-md lg:max-w-lg w-full relative overflow-hidden
+                className="bg-white p-8 bg-gradient-to-br from-green-100 via-gray-150 to-yellow-200 sm:p-10 rounded-3xl shadow-4xl max-w-sm sm:max-w-md lg:max-w-lg w-full relative overflow-hidden
                    transform transition-all duration-500 ease-in-out
-                   border-4 border-solid border-purple-500 hover:border-pink-600 hover:shadow-5xl
-                   focus-within:ring-8 focus-within:ring-purple-300 focus-within:ring-opacity-70" // Refined borders and focus ring
+                   border-transparent mt-[50px] focus-within:ring-8 focus-within:ring-purple-300 focus-within:ring-opacity-70" // Refined borders and focus ring
             >
                 {/* Animated Form Title */}
                 <motion.h2
@@ -85,7 +141,7 @@ const AnimatedSingleStepForm = () => {
                 </motion.p>
 
                 {/* Input fields wrapped in motion.div for animation */}
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <motion.div variants={{
                         hidden: { y: 20, opacity: 0 },
                         visible: {
@@ -97,15 +153,54 @@ const AnimatedSingleStepForm = () => {
                             }
                         }
                     }}>
-                        <label htmlFor="name" className="block text-gray-800 text-lg font-medium mb-2">
-                            Your Name
+                        <label htmlFor="Pan No" className="block text-gray-800 text-lg font-medium mb-2">
+                            PAN No/TAN No
                         </label>
                         <input
                             type="text"
-                            id="name"
-                            placeholder="E.g., John Doe"
+                            id="Pan_no"
+                            value={PAN_No}
+                            onChange={handleChangeInput("PAN_No")}
+                            placeholder="E.g., AABPX2345D"
                             className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
-                            aria-label="Your Name"
+                        />
+                    </motion.div>
+
+                    <div >
+                        <label htmlFor="email" className="block text-gray-800 text-lg font-medium mb-2">
+                            Email
+                        </label>
+                        <input
+                            value={Email}
+                            onChange={handleChangeInput("Email")}
+                            type="email"
+                            id="email"
+                            placeholder="E.g., john.doe@example.com"
+                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
+                        />
+                    </div>
+
+                    <motion.div variants={{
+                        hidden: { y: 20, opacity: 0 },
+                        visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }
+                        }
+                    }}>
+                        <label htmlFor="Address" className="block text-gray-800 text-lg font-medium mb-2">
+                            Registered/Official Address
+                        </label>
+                        <textarea
+                            id="address"
+                            value={Address}
+                            onChange={handleChangeInput("Address")}
+                            rows={3}
+                            placeholder="E.g., 4/20, Namm, city Center, West Bengal"
+                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
                         />
                     </motion.div>
 
@@ -120,15 +215,67 @@ const AnimatedSingleStepForm = () => {
                             }
                         }
                     }}>
-                        <label htmlFor="email" className="block text-gray-800 text-lg font-medium mb-2">
-                            Email Address
+                        <label htmlFor="Name" className="block text-gray-800 text-lg font-medium mb-2">
+                            Company Name/User Name
                         </label>
                         <input
-                            type="email"
-                            id="email"
-                            placeholder="E.g., john.doe@example.com"
+                            value={Name}
+                            onChange={handleChangeInput("Name")}
+                            type="text"
+                            id="address"
+                            placeholder="E.g., Popeye"
                             className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
-                            aria-label="Email Address"
+                        />
+                    </motion.div>
+
+                    <motion.div variants={{
+                        hidden: { y: 20, opacity: 0 },
+                        visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }
+                        }
+                    }}>
+                        <label htmlFor="role" className="block text-gray-800 text-lg font-medium mb-2">
+                            Role
+                        </label>
+                        <select
+                            value={role}
+                            onChange={handleChangeInput("role")}
+                            id="role"
+                            placeholder="E.g., Popeye"
+                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
+                        >
+                            <option value="">Select Role</option>
+                            <option value="Company">Company</option>
+                            <option value="Citizen">Citizen</option>
+                        </select>
+                    </motion.div>
+
+                    <motion.div variants={{
+                        hidden: { y: 20, opacity: 0 },
+                        visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }
+                        }
+                    }}>
+                        <label htmlFor="Password" className="block text-gray-800 text-lg font-medium mb-2">
+                            Passsword
+                        </label>
+                        <input
+                            value={password}
+                            onChange={handleChangeInput("password")}
+                            type="password"
+                            id="password"
+                            placeholder="E.g., XXXXXXXX"
+                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition duration-200 ease-in-out text-lg"
                         />
                     </motion.div>
 
@@ -154,6 +301,26 @@ const AnimatedSingleStepForm = () => {
                             Register
                         </button>
                     </motion.div>
+                    {error && (
+                        <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-500 text-sm flex items-center gap-1"
+                        >
+                            <AlertCircle className="w-4 h-4" />
+                            {error}
+                        </motion.p>
+                    )}
+                    {success && (
+                        <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-green-500 text-sm flex font-bold items-center gap-1"
+                        >
+                            <AlertCircle className="w-4 h-4" />
+                            {success}
+                        </motion.p>
+                    )}
                 </form>
             </motion.div>
         </div>
