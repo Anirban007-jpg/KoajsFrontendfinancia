@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 export const Signup = (data: any) => {
-    return fetch(`http://localhost:5007/register`, {
+    return fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/register`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -16,7 +16,7 @@ export const Signup = (data: any) => {
 };
 
 export const signin = (info: any) => {
-    return fetch(`http://localhost:5007/login`, {
+    return fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/login`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -35,7 +35,7 @@ export const signout = (next: () => void) => {
     removeLocalStorage('loggedinuser');
     next();
 
-    return fetch(`http://localhost:5007/signout`, {
+    return fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/signout`, {
         method: 'GET'
     })
         .then(response => {
