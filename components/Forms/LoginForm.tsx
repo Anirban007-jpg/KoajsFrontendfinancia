@@ -55,10 +55,10 @@ const LoginForm = () => {
 
         signin(individual).then(data => {
 
-            if (data.details) {
-                setValues({ ...values, error: JSON.stringify(data.details[0]) });
+            if (data.error) {
+                setValues({ ...values, error: data.error});
                 setLoading(false);
-                console.log(data.details[0]);
+
             } else {
                 // setValues({
                 //     PAN_No: '',
