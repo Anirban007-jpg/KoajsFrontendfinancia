@@ -94,7 +94,7 @@ export const isAuth = () => {
         const cookieChecked = getCookie('token');
         if (cookieChecked) {
             if (localStorage.getItem('loggedinuser')) {
-                return JSON.parse(localStorage.getItem('loggedinuser'));
+                return JSON.parse(localStorage.getItem('loggedinuser')!);
             } else {
                 return false;
             }
