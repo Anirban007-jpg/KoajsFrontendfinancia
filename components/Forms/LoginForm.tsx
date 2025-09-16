@@ -6,8 +6,8 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useState } from 'react';
-import { Signup } from '@/actions/auth';
+import { useEffect, useState } from 'react';
+import { Signup, authenticate, isAuth, signin } from '@/actions/auth';
 import { AlertCircle } from 'lucide-react';
 
 // Defines the content for the single step of the form.
@@ -21,6 +21,16 @@ const formContent = {
 const LoginForm = () => {
 
     const router = useRouter();
+
+    useEffect(() => {
+        if (!isAuth()){
+          router.push('/login');
+        }else if (isAuth() && isAuth().role === 'Company'){
+          router.push('/company/dashboard');
+        } else if (isAuth() && isAuth().role === 'Citizen'){
+          router.push('/citizen/dashboard');
+        }
+      })
 
     const [values, setValues] = useState({
         PAN_No: '',
@@ -42,21 +52,29 @@ const LoginForm = () => {
         setValues({ ...values, error: '' });
         const individual = { PAN_No,  password };
 
-        Signup(individual).then(data => {
+
+        signin(individual).then(data => {
 
             if (data.details) {
                 setValues({ ...values, error: JSON.stringify(data.details[0]) });
                 setLoading(false);
                 console.log(data.details[0]);
             } else {
-                setValues({
-                    PAN_No: '',
-                    password: '',
-                    error: '',
-                    success: data.message
+                // setValues({
+                //     PAN_No: '',
+                //     password: '',
+                //     error: '',
+                //     success: data.message
+                // })
+                authenticate(data, () => {
+                    if (data.user.role === 'Company'){
+                        router.push('/company/dashboard');
+                    }else {
+                        router.push('/citizen/dashboard');
+                    }
+                    setLoading(false);
+                    console.log(data);
                 })
-                setLoading(false);
-                console.log(data);
             }
 
         })
@@ -196,7 +214,7 @@ const LoginForm = () => {
                          focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-75"
                             aria-label="Submit Form"
                         >
-                            Register
+                            Login
                         </button>
                     </motion.div>
                     {error && (

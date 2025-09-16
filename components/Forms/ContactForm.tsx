@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Send, Check, AlertCircle } from 'lucide-react';
+import { isAuth } from '@/actions/auth';
+import { useRouter } from 'next/navigation';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -17,9 +19,21 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
+const router = useRouter();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+  useEffect(() => {
+    if (!isAuth()){
+      router.push('/contact');
+    }else if (isAuth() && isAuth().role === 'Company'){
+      router.push('/company/dashboard');
+    } else if (isAuth() && isAuth().role === 'Citizen'){
+      router.push('/citizen/dashboard');
+    }
+  })
+  
   const {
     register,
     handleSubmit,

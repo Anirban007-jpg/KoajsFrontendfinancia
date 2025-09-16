@@ -5,8 +5,23 @@ import { ArrowRight, Play, TrendingUp, Shield, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { isAuth } from '@/actions/auth';
+import { useRouter } from 'next/navigation';
 
 export default function Hero() {
+
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (!isAuth()){
+      router.push('/');
+    }else if (isAuth() && isAuth().role === 'Company'){
+      router.push('/company/dashboard');
+    } else if (isAuth() && isAuth().role === 'Citizen'){
+      router.push('/citizen/dashboard');
+    }
+  })
+  
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {

@@ -1,13 +1,17 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Code, Palette, Rocket, Users, Award, Heart } from 'lucide-react';
 import Navbar from '@/components/sections/Navbar';
 import Footer from '@/components/sections/Footer';
+import { isAuth } from '@/actions/auth';
+import { useRouter } from 'next/navigation';
 
 
 const AboutPage = () => {
+  const router = useRouter();
+
   const skillsRef = useRef(null);
   const valuesRef = useRef(null);
   const skillsInView = useInView(skillsRef, { once: true, });
@@ -23,7 +27,16 @@ const AboutPage = () => {
     { name: 'Mongodb', level: 100, color: 'from-red-500 to-green-500' },
   ];
 
-
+  
+  useEffect(() => {
+    if (!isAuth()){
+      router.push('/about');
+    }else if (isAuth() && isAuth().role === 'Company'){
+      router.push('/company/dashboard');
+    } else if (isAuth() && isAuth().role === 'Citizen'){
+      router.push('/citizen/dashboard');
+    }
+  })
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,7 +93,7 @@ const AboutPage = () => {
                 />
               </div>
             </motion.div>
-            
+            {/* {JSON.stringify(isAuth())} */}
             <motion.h1
               variants={itemVariants}
               className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"

@@ -6,8 +6,8 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useState } from 'react';
-import { Signup } from '@/actions/auth';
+import { useEffect, useState } from 'react';
+import { Signup, isAuth } from '@/actions/auth';
 import { AlertCircle } from 'lucide-react';
 
 // Defines the content for the single step of the form.
@@ -37,6 +37,17 @@ const AnimatedSingleStepForm = () => {
         password: '',
         error: '',
         success: ''
+    })
+
+    
+    useEffect(() => {
+        if (!isAuth()){
+          router.push('/register');
+        }else if (isAuth() && isAuth().role === 'Company'){
+          router.push('/company/dashboard');
+        } else if (isAuth() && isAuth().role === 'Citizen'){
+          router.push('/citizen/dashboard');
+        }
     })
 
     const [loading, setLoading] = useState(false);
@@ -321,6 +332,7 @@ const AnimatedSingleStepForm = () => {
                             {error}
                         </motion.p>
                     )}
+                    {/* {JSON.stringify(isAuth())} */}
                     {success && (
                         <motion.p
                             initial={{ opacity: 0, y: -10 }}
