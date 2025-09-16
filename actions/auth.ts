@@ -35,7 +35,7 @@ export const signout = (next: () => void) => {
     removeLocalStorage('loggedinuser');
     next();
 
-    return fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/signout`, {
+    return fetch(`http://localhost:5007/signout`, {
         method: 'GET'
     })
         .then(response => {
