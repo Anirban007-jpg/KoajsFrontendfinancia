@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bell, Search, Menu } from "lucide-react";
+import { Bell, Search, Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { isAuth, signout } from "@/actions/auth";
 import { useRouter } from "next/navigation";
+import { useIdleTimer } from "react-idle-timer";
 
 interface DashboardHeaderProps {
   onMobileMenuToggle: () => void;
@@ -15,6 +16,9 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ onMobileMenuToggle }: DashboardHeaderProps) {
   
   const router = useRouter();
+
+
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -51,14 +55,14 @@ export function DashboardHeader({ onMobileMenuToggle }: DashboardHeaderProps) {
           />
         </div>
         
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button variant="ghost" size="sm" className="relative p-2">
             <Bell className="w-5 h-5" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
             </span>
           </Button>
-        </motion.div>
+        </motion.div> */}
         
         <motion.div
           whileHover={{ scale: 1.05 }}
@@ -67,7 +71,7 @@ export function DashboardHeader({ onMobileMenuToggle }: DashboardHeaderProps) {
           <span className="text-white text-sm font-medium">{isAuth().Initials}</span>
 
         </motion.div>
-        <span className="text-black text-lg font-bold  cursor-pointer" onClick={() => signout(() => router.push("/"))}>Logout</span>
+        <span className="text-black text-lg font-bold  cursor-pointer" onClick={() => signout(() => router.push("/"))}><LogOut></LogOut></span>
       </div>
     </motion.header>
   );

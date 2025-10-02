@@ -20,13 +20,9 @@ interface MobileSidebarProps {
 }
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home, current: true },
-  { name: "Analytics", href: "/analytics", icon: BarChart3, current: false },
-  { name: "Users", href: "/users", icon: Users, current: false },
-  { name: "Projects", href: "/projects", icon: FolderOpen, current: false },
-  { name: "Calendar", href: "/calendar", icon: Calendar, current: false },
-  { name: "Notifications", href: "/notifications", icon: Bell, current: false },
-  { name: "Settings", href: "/settings", icon: Settings, current: false },
+  { name: "Dashboard", href: "/company/dashboard", icon: Home, current: true },
+  { name: "Ledger", href: "/company/ledger", icon: BarChart3, current: false },
+
 ];
 
 export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {

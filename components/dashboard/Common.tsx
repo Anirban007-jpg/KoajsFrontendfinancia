@@ -9,7 +9,7 @@ import { StatsCard } from "./statsCard";
 import { ChartCard } from "./ChartCard";
 import { ActivityFeed } from "./Activityfeed";
 import { isAuth, signout } from "@/actions/auth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useIdleTimer } from 'react-idle-timer';
 
 import AnimatedFormDesign from "../Forms/AnimatedFormDesign";
@@ -57,6 +57,17 @@ export default function Common() {
 
 
     const router = useRouter();
+    const url = usePathname();
+
+    useEffect(() => {
+        if (!isAuth()) {
+            router.push('/register');
+        } else if (isAuth() && isAuth().role === 'Company' && url === '/citizen/ledger') {
+            router.push('/company/dashboard');
+        } else if (isAuth() && isAuth().role === 'Citizen' && url === '/company/ledger') {
+            router.push('/citizen/dashboard');
+        }
+    })
 
     const handleOnIdle = (event: any) => {
         console.log('user is idle', event)
