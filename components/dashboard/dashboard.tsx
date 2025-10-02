@@ -116,11 +116,11 @@ export default function Dashboard() {
           {/* Dashboard Content */}
           <main className="p-6">
             {/* Stats Grid */}
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {statsData.map((stat, index) => (
                 <StatsCard key={stat.title} {...stat} index={index} />
               ))}
-            </div> */}
+            </div>
   
             {/* Charts and Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -146,7 +146,7 @@ export default function Dashboard() {
               </div>
             </div>
   
-            {/* Additional Widgets */}
+            Additional Widgets
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -160,7 +160,7 @@ export default function Dashboard() {
                 <div className="space-y-3">
                
                 </div>
-              </motion.div>
+              </motion.div> 
   
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -175,7 +175,7 @@ export default function Dashboard() {
                 
                 </div>
               </motion.div>
-            </div>
+             </div>
           </main>
         </div>
       </div>

@@ -13,10 +13,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
+  Book,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { isAuth } from "@/actions/auth";
+import { usePathname } from "next/navigation";
+// import { Ledger } from "next/font/google";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -25,10 +28,16 @@ interface SidebarProps {
 }
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home, current: true },
+  { name: "Dashboard", href: "/company/dashboard", icon: Home, current: true },
+  { name: "Ledger", href: "/company/ledger", icon:Book, current: true },
 ];
 
+
 export function Sidebar({ collapsed, onToggle, className }: SidebarProps) {
+
+  const url = usePathname();
+  // console.log(url);
+
   return (
     <motion.div
       initial={false}
@@ -93,8 +102,8 @@ export function Sidebar({ collapsed, onToggle, className }: SidebarProps) {
             whileTap={{ scale: 0.98 }}
             className={cn(
               "group flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200",
-              item.current
-                ? "bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30 shadow-sm"
+            item.current
+                ? `${url === item.href ? `bg-blue-100` : `` } text-blue-600 dark:text-blue-400 border border-blue-500/30 shadow-sm`
                 : "text-gray-600 hover:text-gray-900 hover:bg-white/60 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800/60 hover:shadow-sm"
             )}
           >
