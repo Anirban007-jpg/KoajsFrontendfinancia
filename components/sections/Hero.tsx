@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { isAuth } from '@/actions/auth';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Hero() {
 
@@ -97,7 +98,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
             >
               <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
-                Register Today
+               <Link href="/register"> Register Today</Link>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               

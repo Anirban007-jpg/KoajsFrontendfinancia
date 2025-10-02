@@ -8,8 +8,9 @@ import { DashboardHeader } from "./dashboardheader";
 import { StatsCard } from "./statsCard";
 import { ChartCard } from "./ChartCard";
 import { ActivityFeed } from "./Activityfeed";
-import { isAuth } from "@/actions/auth";
-
+import { isAuth, signout } from "@/actions/auth";
+import { useRouter } from "next/navigation";
+import { useIdleTimer } from 'react-idle-timer';
 
 const statsData = [
     {
@@ -51,7 +52,32 @@ const statsData = [
 export default function Dashboard() {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+    
+    
+    const router = useRouter();
 
+    const handleOnIdle = (event: any) => {
+      console.log('user is idle', event)
+      console.log('last active', getLastActiveTime())
+      signout(() => router.push('/'))
+    }
+  
+    const handleOnActive = (event: any) => {
+      // console.log('user is active', event)
+      // console.log('time remaining', getRemainingTime())
+    }
+  
+    const handleOnAction = (event: any) => {
+      // console.log('user did something', event)
+    }
+  
+    const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+      timeout: 1000 * 60 * 10 ,
+      onIdle: handleOnIdle,
+      onActive: handleOnActive,
+      onAction: handleOnAction,
+      debounce: 500
+    })
   
   
     return (

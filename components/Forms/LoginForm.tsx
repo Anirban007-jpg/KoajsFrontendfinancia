@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Signup, authenticate, isAuth, signin } from '@/actions/auth';
 import { AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
 // Defines the content for the single step of the form.
 const formContent = {
@@ -216,6 +217,27 @@ const LoginForm = () => {
                         >
                             Login
                         </button>
+                        <motion.div variants={{
+                        hidden: { y: 20, opacity: 0 },
+                        visible: {
+                            y: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.5,
+                                ease: "easeOut"
+                            }
+                        }
+                    }} className="pt-4">
+                        <button
+                            type="submit"
+                            className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-bold text-xl
+                         hover:bg-purple-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg
+                         focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-75"
+                            aria-label="Submit Form"
+                        >
+                            <Link href={''}>Forgot Password?</Link>
+                        </button>
+                        </motion.div>
                     </motion.div>
                     {error && (
                         <motion.p
