@@ -30,6 +30,11 @@ interface SidebarProps {
 const navigation = [
   { name: "Dashboard", href: "/company/dashboard", icon: Home, current: true },
   { name: "Ledger", href: "/company/ledger", icon:Book, current: true },
+  { name: "Debtor Management" , href: "/company/debtor", icon:Book, current: true },
+  { name: "Creditor Management", href: "/company/creditor", icon:Book, current: true },
+  { name: "Asset Management", href: "/company/asset", icon:Book, current: true },
+  { name: "Journal", href: "/company/ledger", icon:Book, current: true }
+
 ];
 
 

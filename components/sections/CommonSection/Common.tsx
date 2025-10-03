@@ -2,17 +2,18 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Users, TrendingUp, DollarSign, Activity } from "lucide-react";
-import { Sidebar } from "./sidebar";
-import { MobileSidebar } from "./mobile-sidebar";
-import { DashboardHeader } from "./dashboardheader";
-import { StatsCard } from "./statsCard";
-import { ChartCard } from "./ChartCard";
-import { ActivityFeed } from "./Activityfeed";
+import { Sidebar } from "../../dashboard/sidebar";
+import { MobileSidebar } from "../../dashboard/mobile-sidebar";
+import { DashboardHeader } from "../../dashboard/dashboardheader";
+import { StatsCard } from "../../dashboard/statsCard";
+import { ChartCard } from "../../dashboard/ChartCard";
+import { ActivityFeed } from "../../dashboard/Activityfeed";
 import { isAuth, signout } from "@/actions/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { useIdleTimer } from 'react-idle-timer';
 
-import AnimatedFormDesign from "../Forms/AnimatedFormDesign";
+import AnimatedFormDesign from "../../Forms/AnimatedFormDesign";
+import LedgerContent from "../Ledger/LedgerContent";
 
 const statsData = [
     {
@@ -51,7 +52,7 @@ const statsData = [
 
 
 
-export default function Common() {
+export default function Common({ children }: { children: React.ReactNode }) {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -62,9 +63,9 @@ export default function Common() {
     useEffect(() => {
         if (!isAuth()) {
             router.push('/register');
-        } else if (isAuth() && isAuth().role === 'Company' && url === '/citizen/ledger') {
+        } else if (isAuth() && isAuth().role === 'Company' && (url === '/citizen/ledger' || url === '/citizen/debtor' || url === '/citizen/creditor' || url === '/citizen/asset')) {
             router.push('/company/dashboard');
-        } else if (isAuth() && isAuth().role === 'Citizen' && url === '/company/ledger') {
+        } else if (isAuth() && isAuth().role === 'Citizen' && (url === '/company/ledger' || url === '/company/debtor' || url === '/company/creditor' || url === '/company/asset')) {
             router.push('/citizen/dashboard');
         }
     })
@@ -135,17 +136,7 @@ export default function Common() {
                 />
 
                 {/* Dashboard Content */}
-                <main className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 animate-gradient">
-                    <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
-                        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style={{ animationDelay: '4s' }}></div>
-                    </div>
-
-                    <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-                        <AnimatedFormDesign />
-                    </div>
-             </main>
+                    {children}
             </div>
         </div>
     );
