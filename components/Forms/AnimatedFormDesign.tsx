@@ -62,7 +62,7 @@ export default function AnimatedFormDesign() {
                     updateLedger(token,ledger);
                 })});
         }else {
-            setMessage("Closing Balance will be updated automatically on closing B/S Date");
+            setMessage("Closing Balance of Respective ledgers will be updated automatically on CLOSING B/S Date");
         }
         // console.log(date);
       
