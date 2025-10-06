@@ -15,24 +15,24 @@ export default function DebotrAnimatedFormDesign() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [values, setValues] = useState({
-        Ledger_Name: '',
-        Opening_Balance: 0,
-        type_of_ledger: '',
-        balance_type: '',
-        BS_Type_Item: '',
-        PL_Type_Item: '',
+        Debtor_name: '',
+        Debtor_address: '',
+        Debtor_contact_no: '',
+        Debtor_email: '',
+        Debtor_balance: 0,
         error: '',
         success: ''
     })
 
-    const { Ledger_Name,
-        Opening_Balance,
-        type_of_ledger,
-        balance_type,
-        BS_Type_Item,
-        PL_Type_Item,
+    const {
+        Debtor_name,
+        Debtor_address,
+        Debtor_contact_no,
+        Debtor_email,
+        Debtor_balance,
         error,
-        success } = values;
+        success 
+    } = values;
 
     const token = getCookie('token');
     // console.log(token)
@@ -45,12 +45,12 @@ export default function DebotrAnimatedFormDesign() {
         e.preventDefault();
         setValues({ ...values, error: '' });
         const ledger = {
-            Ledger_Name,
-            Opening_Balance,
-            type_of_ledger,
-            balance_type,
-            BS_Type_Item,
-            PL_Type_Item
+            Debtor_name,
+            Debtor_address,
+            Debtor_contact_no,
+            Debtor_email,
+            Debtor_balance,
+              
         }
         setIsSubmitting(true);
 
@@ -61,12 +61,11 @@ export default function DebotrAnimatedFormDesign() {
                 console.log(data.details[0]);
             } else {
                 setValues({
-                    Ledger_Name: '',
-                    Opening_Balance: 0,
-                    type_of_ledger: '',
-                    balance_type: '',
-                    BS_Type_Item: '',
-                    PL_Type_Item: '',
+                    Debtor_name: '',
+                    Debtor_address: '',
+                    Debtor_contact_no: '',
+                    Debtor_email: '',
+                    Debtor_balance: 0,
                     error: '',
                     success: data.message
                 })
@@ -141,14 +140,14 @@ export default function DebotrAnimatedFormDesign() {
                     variants={itemVariants}
                     className="text-4xl md:text-5xl font-bold text-white mb-3 text-center"
                 >
-                    Create Your Ledger
+                    Create Your Debtor
                 </motion.h1>
 
                 <motion.p
                     variants={itemVariants}
                     className="text-white/80 text-center mb-8"
                 >
-                    Fill out the form below and ledger will be created shortly
+                    Fill out the form below and Debtor will be created shortly
                 </motion.p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -157,13 +156,13 @@ export default function DebotrAnimatedFormDesign() {
 
                             className="block text-white font-medium mb-2"
                         >
-                            Ledger A/C
+                            Debtor Name
                         </label>
                         <motion.input
                             whileFocus={{ scale: 1.02 }}
                             transition={{ duration: 0.2 }}
-                            value={Ledger_Name}
-                            onChange={handleChangeInput("Ledger_Name")}
+                            value={Debtor_name}
+                            onChange={handleChangeInput("Debtor_name")}
                             type="text"
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
@@ -171,21 +170,20 @@ export default function DebotrAnimatedFormDesign() {
 
                     </motion.div>
 
-                    <motion.div variants={itemVariants} className="grid md:grid-cols-2 gap-6">
+                    <motion.div variants={itemVariants} className="grid md:grid-cols-1 gap-6">
                         <div>
                             <label
 
                                 className="block text-white font-medium mb-2"
                             >
-                                Opening Balance
+                                Debtor Address
                             </label>
-                            <motion.input
+                            <motion.textarea
                                 whileFocus={{ scale: 1.02 }}
                                 transition={{ duration: 0.2 }}
-
-                                type="number"
-                                value={Opening_Balance}
-                                onChange={handleChangeInput("Opening_Balance")}
+                                rows={3}
+                                value={Debtor_address}
+                                onChange={handleChangeInput("Debtor_address")}
                                 className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
                             />
@@ -199,20 +197,18 @@ export default function DebotrAnimatedFormDesign() {
                             >
                                 Ledger Type
                             </label>
-                            <motion.select
+                            <motion.input
                                 whileFocus={{ scale: 1.02 }}
                                 transition={{ duration: 0.2 }}
-
-                                value={type_of_ledger}
-                                onChange={handleChangeInput("type_of_ledger")}
+                                type="text"
+                                value={Debtor_contact_no}
+                                onChange={handleChangeInput("Debtor_contact_no")}
 
                                 className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
                             >
-                                <motion.option value="">Select</motion.option>
-                                <motion.option value="Assets">Assets</motion.option>
-                                <motion.option value="Liabilities">Liabilities</motion.option>
-                            </motion.select>
+                                
+                            </motion.input>
 
                         </motion.div>
                     </motion.div>
@@ -224,20 +220,18 @@ export default function DebotrAnimatedFormDesign() {
                         >
                             Ledger Balance Type
                         </label>
-                        <motion.select
+                        <motion.input
                             whileFocus={{ scale: 1.02 }}
                             transition={{ duration: 0.2 }}
 
-
-                            value={balance_type}
-                            onChange={handleChangeInput("balance_type")}
+                            type="email"
+                            value={Debtor_email}
+                            onChange={handleChangeInput("Debtor_email")}
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                             placeholder="+1 234 567 8900"
                         >
-                            <motion.option value="">Select</motion.option>
-                            <motion.option value="Dr">Debit</motion.option>
-                            <motion.option value="Cr">credit</motion.option>
-                        </motion.select>
+                           
+                        </motion.input>
 
 
                     </motion.div>
@@ -252,34 +246,16 @@ export default function DebotrAnimatedFormDesign() {
                         <motion.input
                             whileFocus={{ scale: 1.02 }}
                             transition={{ duration: 0.2 }}
-                            value={BS_Type_Item}
-                            onChange={handleChangeInput("BS_Type_Item")}
-                            type="text"
+                            value={Debtor_balance}
+                            onChange={handleChangeInput("Debtor_balance")}
+                            type="number"
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all resize-none"
 
                         />
 
 
                     </motion.div>
-                    <motion.div variants={itemVariants}>
-                        <label
-
-                            className="block text-white font-medium mb-2"
-                        >
-                            Profit & Loss Item Type
-                        </label>
-                        <motion.input
-                            whileFocus={{ scale: 1.02 }}
-                            transition={{ duration: 0.2 }}
-                            type="text"
-                            value={PL_Type_Item}
-                            onChange={handleChangeInput("PL_Type_Item")}
-                            className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all resize-none"
-
-                        />
-
-
-                    </motion.div>
+                  
 
                     <motion.div variants={itemVariants}>
                         <motion.button
