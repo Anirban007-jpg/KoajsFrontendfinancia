@@ -74,7 +74,7 @@ const LoginForm = () => {
                         router.push('/citizen/dashboard');
                     }
                     setLoading(false);
-                    console.log(data);
+                    // console.log(data);
                 })
             }
 

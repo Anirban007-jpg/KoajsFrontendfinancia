@@ -11,6 +11,7 @@ import {
   Calendar,
   FolderOpen,
   X,
+  Book,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,9 @@ interface MobileSidebarProps {
 const navigation = [
   { name: "Dashboard", href: "/company/dashboard", icon: Home, current: true },
   { name: "Ledger", href: "/company/ledger", icon: BarChart3, current: false },
+  { name: "Debtor Management" , href: "/company/debtor", icon:Book, current: true },
+  { name: "Creditor Management", href: "/company/creditor", icon:Book, current: true },
+  { name: "Asset Management", href: "/company/asset", icon:Book, current: true },
 
 ];
 

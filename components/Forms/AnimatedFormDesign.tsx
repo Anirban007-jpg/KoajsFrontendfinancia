@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { getCookie, isAuth, signout } from "@/actions/auth";
 import { useIdleTimer } from "react-idle-timer";
 import { AlertCircle } from "lucide-react";
-import { createLedger } from "@/actions/ledger";
+import moment from 'moment';
+import { createLedger, getLedger, updateLedger } from "@/actions/ledger";
+import { format, isSameDay } from "date-fns";
 
 
 
@@ -14,6 +16,7 @@ import { createLedger } from "@/actions/ledger";
 export default function AnimatedFormDesign() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    
     const [values, setValues] = useState({
         Ledger_Name: '',
         Opening_Balance: 0,
@@ -22,8 +25,12 @@ export default function AnimatedFormDesign() {
         BS_Type_Item: '',
         PL_Type_Item: '',
         error: '',
-        success: ''
+        success: '',
+      
     })
+
+    let [message, setMessage]= useState("");
+    let [LedgerName,setLedgerName] = useState("");
 
     const { Ledger_Name,
         Opening_Balance,
@@ -40,6 +47,26 @@ export default function AnimatedFormDesign() {
     const handleChangeInput = (name: string) => (e: { target: { value: any; }; }) => {
         setValues({ ...values, error: '', [name]: e.target.value })
     }
+
+    // setLedger(data)
+
+    useEffect(() => {
+        const currentDate = new Date();
+        const date = format(currentDate, "dd-MM-yyyy");
+        if (isSameDay(date,"31-03-2026")){
+            getLedger(token).then(data => {
+                 data.map((item: any) => {
+                    // console.log(item)
+                    LedgerName = item.Ledger_Name;
+                    const ledger = {LedgerName};
+                    updateLedger(token,ledger);
+                })});
+        }else {
+            setMessage("Closing Balance will be updated automatically on closing B/S Date");
+        }
+        // console.log(date);
+      
+    }, [])
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -58,7 +85,7 @@ export default function AnimatedFormDesign() {
             if (data.details) {
                 setValues({ ...values, error: JSON.stringify(data.details[0]) });
                 setIsSubmitting(false);
-                console.log(data.details[0]);
+                // console.log(data.details[0]);
             } else {
                 setValues({
                     Ledger_Name: '',
@@ -71,7 +98,7 @@ export default function AnimatedFormDesign() {
                     success: data.message
                 })
                 setIsSubmitting(false);
-                console.log(data);
+                // console.log(data);
 
             }
         })
@@ -81,8 +108,8 @@ export default function AnimatedFormDesign() {
 
     const router = useRouter()
     const handleOnIdle = (event: any) => {
-        console.log('user is idle', event)
-        console.log('last active', getLastActiveTime())
+        // console.log('user is idle', event)
+        // console.log('last active', getLastActiveTime())
         signout(() => router.push('/'))
     }
 
@@ -92,8 +119,8 @@ export default function AnimatedFormDesign() {
     }
 
     const handleOnAction = (event: any) => {
-        console.log('user did something', event)
-        console.log('time remaining', getRemainingTime())
+        // console.log('user did something', event)
+        // console.log('time remaining', getRemainingTime())
     }
 
     const { getRemainingTime, getLastActiveTime } = useIdleTimer({
@@ -126,17 +153,29 @@ export default function AnimatedFormDesign() {
     };
 
     return (
+      
         <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="w-full max-w-2xl"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="w-full max-w-2xl"
         >
+      
             <motion.div
                 className="backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20"
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.3 }}
             >
+                  {message && (
+                            <motion.p
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-yellow-500 text-sm mt-6 flex font-bold mb-6 justify-center items-center gap-1"
+                            >
+                                <AlertCircle className="w-4 h-4" />
+                                {message}
+                            </motion.p>
+                        )}
                 <motion.h1
                     variants={itemVariants}
                     className="text-4xl md:text-5xl font-bold text-white mb-3 text-center"
@@ -332,5 +371,6 @@ export default function AnimatedFormDesign() {
 
             </motion.div>
         </motion.div>
+        
     );
 }
