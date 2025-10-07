@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { getCookie, isAuth, signout } from "@/actions/auth";
 import { useIdleTimer } from "react-idle-timer";
 import { AlertCircle } from "lucide-react";
-import { createLedger } from "@/actions/ledger";
-import { createDebtor } from "@/actions/debtor";
-
+import { createLedger, getSpecificLedger } from "@/actions/ledger";
+import { createDebtor, updateDebtor } from "@/actions/debtor";
+import math from "mathjs";
 
 
 
@@ -36,10 +36,21 @@ export default function DebotrAnimatedFormDesign() {
     } = values;
 
     const token = getCookie('token');
+    const [Ledger, setLedger] = useState("");
     // console.log(token)
 
     const handleChangeInput = (name: string) => (e: { target: { value: any; }; }) => {
         setValues({ ...values, error: '', [name]: e.target.value })
+    }
+
+    useEffect(() => {
+        getSpecificLedger(token).then(data => {setLedger(data.ledgers[0])});
+        // if (Ledger.Current_Balance !==)
+    },[])
+
+    const handleClick = (e:any) => {
+        e.preventDefault();
+        updateDebtor(token).then(data => {setValues({...values, success: data.message})});
     }
 
     const handleSubmit = (e: any) => {
@@ -78,7 +89,7 @@ export default function DebotrAnimatedFormDesign() {
 
 
     }
-
+    console.log(Ledger);
     const router = useRouter()
     const handleOnIdle = (event: any) => {
         // console.log('user is idle', event)
@@ -281,6 +292,31 @@ export default function DebotrAnimatedFormDesign() {
                                 </motion.div>
                             ) : (
                                 "Create Debtor"
+                            )}
+                        </motion.button>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            type="submit"
+                            onClick={handleClick}
+                            disabled={isSubmitting}
+                            className={`w-full py-4 px-6 gap-6 my-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50`}
+                        >
+                            {isSubmitting ? (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="flex items-center justify-center"
+                                >
+                                    <motion.div
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                        className="w-6 h-6 border-2 border-white border-t-transparent rounded-full mr-2"
+                                    />
+                                    Updating Debtor Ledger
+                                </motion.div>
+                            ) : (
+                                "Update Debtor Ledger"
                             )}
                         </motion.button>
                         {error && (
