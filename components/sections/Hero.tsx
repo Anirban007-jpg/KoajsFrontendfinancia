@@ -112,18 +112,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-green-400" />
-                <span className="text-sm">SEC Registered</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-yellow-400" />
-                <span className="text-sm">Award Winning</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-blue-400" />
-                <span className="text-sm">1+ Years Experience</span>
-              </div>
+
             </motion.div>
           </div>
 
