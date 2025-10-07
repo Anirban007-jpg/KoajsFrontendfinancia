@@ -7,6 +7,7 @@ import { getCookie, isAuth, signout } from "@/actions/auth";
 import { useIdleTimer } from "react-idle-timer";
 import { AlertCircle } from "lucide-react";
 import { createLedger } from "@/actions/ledger";
+import { createDebtor } from "@/actions/debtor";
 
 
 
@@ -21,7 +22,7 @@ export default function DebotrAnimatedFormDesign() {
         Debtor_email: '',
         Debtor_balance: 0,
         error: '',
-        success: ''
+        success: '',
     })
 
     const {
@@ -44,7 +45,7 @@ export default function DebotrAnimatedFormDesign() {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         setValues({ ...values, error: '' });
-        const ledger = {
+        const debtor = {
             Debtor_name,
             Debtor_address,
             Debtor_contact_no,
@@ -54,11 +55,11 @@ export default function DebotrAnimatedFormDesign() {
         }
         setIsSubmitting(true);
 
-        createLedger(ledger, token).then(data => {
+        createDebtor(debtor, token).then(data => {
             if (data.details) {
                 setValues({ ...values, error: JSON.stringify(data.details[0]) });
                 setIsSubmitting(false);
-                console.log(data.details[0]);
+                // console.log(data.details[0]);
             } else {
                 setValues({
                     Debtor_name: '',
@@ -70,7 +71,7 @@ export default function DebotrAnimatedFormDesign() {
                     success: data.message
                 })
                 setIsSubmitting(false);
-                console.log(data);
+                // console.log(data);
 
             }
         })
@@ -195,7 +196,7 @@ export default function DebotrAnimatedFormDesign() {
 
                                 className="block text-white font-medium mb-2"
                             >
-                                Ledger Type
+                                Debtor Contact No
                             </label>
                             <motion.input
                                 whileFocus={{ scale: 1.02 }}
@@ -218,7 +219,7 @@ export default function DebotrAnimatedFormDesign() {
 
                             className="block text-white font-medium mb-2"
                         >
-                            Ledger Balance Type
+                            Debtor Email
                         </label>
                         <motion.input
                             whileFocus={{ scale: 1.02 }}
@@ -228,7 +229,7 @@ export default function DebotrAnimatedFormDesign() {
                             value={Debtor_email}
                             onChange={handleChangeInput("Debtor_email")}
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
-                            placeholder="+1 234 567 8900"
+                    
                         >
                            
                         </motion.input>
@@ -241,7 +242,7 @@ export default function DebotrAnimatedFormDesign() {
 
                             className="block text-white font-medium mb-2"
                         >
-                            Balance Sheet Item Type
+                            Debtor Balance
                         </label>
                         <motion.input
                             whileFocus={{ scale: 1.02 }}
@@ -276,10 +277,10 @@ export default function DebotrAnimatedFormDesign() {
                                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                         className="w-6 h-6 border-2 border-white border-t-transparent rounded-full mr-2"
                                     />
-                                    Creating Ledger
+                                    Creating Debtor
                                 </motion.div>
                             ) : (
-                                "Create Ledger"
+                                "Create Debtor"
                             )}
                         </motion.button>
                         {error && (
