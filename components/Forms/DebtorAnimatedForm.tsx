@@ -43,10 +43,10 @@ export default function DebotrAnimatedFormDesign() {
         setValues({ ...values, error: '', [name]: e.target.value })
     }
 
-    useEffect(() => {
-        getSpecificLedger(token).then(data => {setLedger(data.ledgers[0])});
-        // if (Ledger.Current_Balance !==)
-    },[])
+    // useEffect(() => {
+    //     getSpecificLedger(token).then(data => {setLedger(data.ledgers[0])});
+    //     // if (Ledger.Current_Balance !==)
+    // },[])
 
     const handleClick = (e:any) => {
         e.preventDefault();
@@ -89,7 +89,7 @@ export default function DebotrAnimatedFormDesign() {
 
 
     }
-    console.log(Ledger);
+    // console.log(Ledger);
     const router = useRouter()
     const handleOnIdle = (event: any) => {
         // console.log('user is idle', event)
