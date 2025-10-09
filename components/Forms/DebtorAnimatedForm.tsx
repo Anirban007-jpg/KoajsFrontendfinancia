@@ -2,19 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { getCookie, isAuth, signout } from "@/actions/auth";
-import { useIdleTimer } from "react-idle-timer";
+// import { useIdleTimer } from "react-idle-timer";
 import { AlertCircle } from "lucide-react";
-import { createLedger, getSpecificLedger } from "@/actions/ledger";
+// import { createLedger, getSpecificLedger } from "@/actions/ledger";
 import { createDebtor, updateDebtor } from "@/actions/debtor";
-import math from "mathjs";
+// import math from "mathjs";
 
 
 
 export default function DebotrAnimatedFormDesign() {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    // const [isSubmitted, setIsSubmitted] = useState(false);
     const [values, setValues] = useState({
         Debtor_name: '',
         Debtor_address: '',
@@ -51,6 +51,7 @@ export default function DebotrAnimatedFormDesign() {
     const handleClick = (e:any) => {
         e.preventDefault();
         updateDebtor(token).then(data => {setValues({...values, success: data.message})});
+        setIsSubmitting(true);
     }
 
     const handleSubmit = (e: any) => {
@@ -89,31 +90,7 @@ export default function DebotrAnimatedFormDesign() {
 
 
     }
-    // console.log(Ledger);
-    const router = useRouter()
-    const handleOnIdle = (event: any) => {
-        // console.log('user is idle', event)
-        // console.log('last active', getLastActiveTime())
-        signout(() => router.push('/'))
-    }
-
-    const handleOnActive = (event: any) => {
-        // console.log('user is active', event)
-        // console.log('time remaining', getRemainingTime())
-    }
-
-    const handleOnAction = (event: any) => {
-        // console.log('user did something', event)
-        // console.log('time remaining', getRemainingTime())
-    }
-
-    const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-        timeout: 1000 * 60 * 10,
-        onIdle: handleOnIdle,
-        onActive: handleOnActive,
-        onAction: handleOnAction,
-        debounce: 500
-    })
+   
 
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -299,7 +276,7 @@ export default function DebotrAnimatedFormDesign() {
                             whileTap={{ scale: 0.95 }}
                             type="submit"
                             onClick={handleClick}
-                            disabled={isSubmitting}
+                            disabled={!isSubmitting}
                             className={`w-full py-4 px-6 gap-6 my-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50`}
                         >
                             {isSubmitting ? (

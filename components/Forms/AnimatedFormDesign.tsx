@@ -2,11 +2,11 @@
 
 import { SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { getCookie, isAuth, signout } from "@/actions/auth";
-import { useIdleTimer } from "react-idle-timer";
+// import { useIdleTimer } from "react-idle-timer";
 import { AlertCircle } from "lucide-react";
-import moment from 'moment';
+// import moment from 'moment';
 import { createLedger, getLedger, updateLedger } from "@/actions/ledger";
 import { format, isSameDay } from "date-fns";
 
@@ -15,7 +15,7 @@ import { format, isSameDay } from "date-fns";
 
 export default function AnimatedFormDesign() {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    // const [isSubmitted, setIsSubmitted] = useState(false);
     
     const [values, setValues] = useState({
         Ledger_Name: '',
@@ -106,31 +106,7 @@ export default function AnimatedFormDesign() {
 
     }
 
-    const router = useRouter()
-    const handleOnIdle = (event: any) => {
-        // console.log('user is idle', event)
-        // console.log('last active', getLastActiveTime())
-        signout(() => router.push('/'))
-    }
-
-    const handleOnActive = (event: any) => {
-        // console.log('user is active', event)
-        // console.log('time remaining', getRemainingTime())
-    }
-
-    const handleOnAction = (event: any) => {
-        // console.log('user did something', event)
-        // console.log('time remaining', getRemainingTime())
-    }
-
-    const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-        timeout: 1000 * 60 * 10,
-        onIdle: handleOnIdle,
-        onActive: handleOnActive,
-        onAction: handleOnAction,
-        debounce: 500
-    })
-
+   
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: {
