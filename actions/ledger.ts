@@ -46,6 +46,21 @@ export const getSpecificLedger = (token:any) => {
         .catch(err => console.log(err));
 };
 
+export const getLedgers = (token:any) => {
+    return fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/ledger/get`, {
+        cache: "force-cache",
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+       })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 
 
 export const updateLedger = (token: any, ledger: any) => {
