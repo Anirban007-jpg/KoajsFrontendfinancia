@@ -89,7 +89,7 @@ export default function LedgerDisplay({ array }: any) {
                                 <CardContainer className="inter-var backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20" containerClassName="py-8">
                                     <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[24rem] h-auto rounded-xl p-4 border">
 
-                                        <CardItem translateZ="100" key={item._id} className="w-full mt-4">
+                                        <CardItem translateZ="100" key={item._id} className="w-full text-sm mt-4">
                                             <motion.div
                                                 className=""
                                                 whileHover={{ scale: 1.01 }}
@@ -155,7 +155,7 @@ export default function LedgerDisplay({ array }: any) {
                                                     whileHover={{ scale: 1.01 }}
                                                     transition={{ duration: 0.3 }}
                                                     className="">
-                                                    <div className="text-0.02xl font-bold text-center">
+                                                    <div className="text-sm font-bold text-center">
                                                         Current Balance  :  {item.Currency} {item.Current_Balance}
                                                     </div>
                                                 </motion.p>
@@ -169,7 +169,7 @@ export default function LedgerDisplay({ array }: any) {
                                                     whileHover={{ scale: 1.01 }}
                                                     transition={{ duration: 0.3 }}
                                                     className="">
-                                                    <div className="text-0.02xl font-bold text-center">
+                                                    <div className="text-sm font-bold text-center">
                                                         Balance Sheet Item  :  {item.BS_Type_Item}
                                                     </div>
                                                 </motion.p>
