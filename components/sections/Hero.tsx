@@ -129,8 +129,7 @@ export default function Hero() {
                   <h3 className="text-white font-semibold">Portfolio Value</h3>
                   <TrendingUp className="h-6 w-6 text-green-400" />
                 </div>
-                <div className="text-2xl font-bold text-white mb-2"></div>
-                <div className="text-green-400 text-sm"></div>
+           
               </motion.div>
 
               {/* Smaller Cards */}
@@ -142,13 +141,7 @@ export default function Hero() {
                 <div className="text-white text-xl font-bold">5%</div>
               </motion.div>
 
-              <motion.div 
-                className="floating-card absolute top-32 -right-8 w-48 h-32 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 backdrop-blur-lg rounded-xl p-4 border border-blue-500/30"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-blue-400 text-sm font-medium mb-2"></div>
-                <div className="text-white text-xl font-bold"></div>
-              </motion.div>
+        
             </div>
           </div>
         </div>

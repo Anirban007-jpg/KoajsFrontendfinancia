@@ -24,12 +24,12 @@ export const getLedgers = async () => {
 const page = async () => {
   const data = await getLedgers();
   // console.log(data.ledgers);
-  const ledgerarray = data.ledgers;
+  let ledgerarray = data.ledgers;
   // console.log(ledgerarray)
 
   return (
     <Common>
-      <LedgerDisplay array={ledgerarray} />
+      <LedgerDisplay array={ledgerarray}></LedgerDisplay>
     </Common>
   );
 }
