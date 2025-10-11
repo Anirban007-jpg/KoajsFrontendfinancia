@@ -227,6 +227,8 @@ export default function AnimatedFormDesign() {
                                 <motion.option value="">Select</motion.option>
                                 <motion.option value="Assets">Assets</motion.option>
                                 <motion.option value="Liabilities">Liabilities</motion.option>
+                                <motion.option value="Income">Income</motion.option>
+                                <motion.option value="Expense">Expense</motion.option>
                             </motion.select>
 
                         </motion.div>

@@ -170,7 +170,7 @@ export default function LedgerDisplay({ array }: any) {
                                                     transition={{ duration: 0.3 }}
                                                     className="">
                                                     <div className="text-sm font-bold text-center">
-                                                        Balance Sheet Item  :  {item.BS_Type_Item}
+                                                        Balance Sheet Item  :  {item.BS_Type_Item == 'Null' ? 'N/A' : item.BS_Type_Item}
                                                     </div>
                                                 </motion.p>
                                             </motion.div>
