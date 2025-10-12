@@ -16,7 +16,7 @@ import { format, isSameDay } from "date-fns";
 export default function AnimatedFormDesign() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     // const [isSubmitted, setIsSubmitted] = useState(false);
-    
+
     const [values, setValues] = useState({
         Ledger_Name: '',
         Opening_Balance: 0,
@@ -26,11 +26,11 @@ export default function AnimatedFormDesign() {
         PL_Type_Item: '',
         error: '',
         success: '',
-      
+
     })
 
-    let [message, setMessage]= useState("");
-    let [LedgerName,setLedgerName] = useState("");
+    let [message, setMessage] = useState("");
+    let [LedgerName, setLedgerName] = useState("");
 
     const { Ledger_Name,
         Opening_Balance,
@@ -53,19 +53,20 @@ export default function AnimatedFormDesign() {
     useEffect(() => {
         const currentDate = new Date();
         const date = format(currentDate, "dd-MM-yyyy");
-        if (isSameDay(date,"31-03-2026")){
+        if (isSameDay(date, "31-03-2026")) {
             getLedger(token).then(data => {
-                 data.map((item: any) => {
+                data.map((item: any) => {
                     // console.log(item)
                     LedgerName = item.Ledger_Name;
-                    const ledger = {LedgerName};
-                    updateLedger(token,ledger);
-                })});
-        }else {
+                    const ledger = { LedgerName };
+                    updateLedger(token, ledger);
+                })
+            });
+        } else {
             setMessage("Closing Balance of Respective ledgers will be updated automatically on CLOSING B/S Date");
         }
         // console.log(date);
-      
+
     }, [])
 
     const handleSubmit = (e: any) => {
@@ -80,6 +81,8 @@ export default function AnimatedFormDesign() {
             PL_Type_Item
         }
         setIsSubmitting(true);
+
+        console.log(ledger)
 
         createLedger(ledger, token).then(data => {
             if (data.details) {
@@ -106,7 +109,7 @@ export default function AnimatedFormDesign() {
 
     }
 
-   
+
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: {
@@ -129,29 +132,29 @@ export default function AnimatedFormDesign() {
     };
 
     return (
-      
+
         <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="w-full max-w-2xl"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="w-full max-w-2xl"
         >
-      
+
             <motion.div
                 className="backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20"
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.3 }}
             >
-                  {message && (
-                            <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-yellow-500 text-sm mt-6 flex font-bold mb-6 justify-center items-center gap-1"
-                            >
-                                <AlertCircle className="w-4 h-4" />
-                                {message}
-                            </motion.p>
-                        )}
+                {message && (
+                    <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-yellow-500 text-sm mt-6 flex font-bold mb-6 justify-center items-center gap-1"
+                    >
+                        <AlertCircle className="w-4 h-4" />
+                        {message}
+                    </motion.p>
+                )}
                 <motion.h1
                     variants={itemVariants}
                     className="text-4xl md:text-5xl font-bold text-white mb-3 text-center"
@@ -174,20 +177,25 @@ export default function AnimatedFormDesign() {
                         >
                             Ledger A/C
                         </label>
-                        <motion.input
+                        <motion.select
                             whileFocus={{ scale: 1.02 }}
                             transition={{ duration: 0.2 }}
                             value={Ledger_Name}
                             onChange={handleChangeInput("Ledger_Name")}
-                            type="text"
-                            className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
+                
+                            className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
-                        />
-
+                        >
+                        <motion.option value="">Select</motion.option>
+                        <motion.option value="Cash A/C">Cash</motion.option>
+                        <motion.option value="Debtor A/C">Debtor</motion.option>
+                        <motion.option value="Creditor A/C">Creditor</motion.option>
+                        <motion.option value="Bank A/C">Bank</motion.option>
+                        </motion.select>
                     </motion.div>
 
                     <motion.div variants={itemVariants} className="grid md:grid-cols-2 gap-6">
-                        <div>
+                        {Ledger_Name == "Debtor A/C" || Ledger_Name == "Creditor A/C" || Ledger_Name == "Bank A/C" ? '' : <div>
                             <label
 
                                 className="block text-white font-medium mb-2"
@@ -206,7 +214,7 @@ export default function AnimatedFormDesign() {
                             />
 
                         </div>
-
+                        }
                         <motion.div variants={itemVariants}>
                             <label
 
@@ -349,6 +357,6 @@ export default function AnimatedFormDesign() {
 
             </motion.div>
         </motion.div>
-        
+
     );
 }
