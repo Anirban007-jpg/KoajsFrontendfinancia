@@ -182,15 +182,17 @@ export default function AnimatedFormDesign() {
                             transition={{ duration: 0.2 }}
                             value={Ledger_Name}
                             onChange={handleChangeInput("Ledger_Name")}
-                
+
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
                         >
-                        <motion.option value="">Select</motion.option>
-                        <motion.option value="Cash A/C">Cash</motion.option>
-                        <motion.option value="Debtor A/C">Debtor</motion.option>
-                        <motion.option value="Creditor A/C">Creditor</motion.option>
-                        <motion.option value="Bank A/C">Bank</motion.option>
+                            <motion.option value="">Select</motion.option>
+                            <motion.option value="Cash A/C">Cash</motion.option>
+                            <motion.option value="Debtor A/C">Debtor</motion.option>
+                            <motion.option value="Creditor A/C">Creditor</motion.option>
+                            <motion.option value="Bank A/C">Bank</motion.option>
+                            <motion.option value="Sales A/C">Sales</motion.option>
+                            <motion.option value="Purchase A/C">Purchase</motion.option>
                         </motion.select>
                     </motion.div>
 
@@ -261,7 +263,7 @@ export default function AnimatedFormDesign() {
                         >
                             <motion.option value="">Select</motion.option>
                             <motion.option value="Dr">Debit</motion.option>
-                            <motion.option value="Cr">credit</motion.option>
+                            <motion.option value="Cr">Credit</motion.option>
                         </motion.select>
 
 

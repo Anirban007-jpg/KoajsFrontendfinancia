@@ -268,7 +268,7 @@ export default function CreditorAnimatedFormDesign() {
                             whileTap={{ scale: 0.95 }}
                             type="submit"
                             onClick={handleClick}
-                            disabled={!isSubmitting}
+                            disabled={isSubmitting}
                             className={`w-full py-4 px-6 gap-6 my-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50`}
                         >
                             {isSubmitting ? (
