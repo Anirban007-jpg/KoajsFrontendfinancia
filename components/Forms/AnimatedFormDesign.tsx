@@ -340,16 +340,16 @@ export default function AnimatedFormDesign() {
                         </motion.button>
                         {error && (
                             <>
-                                  {toast.dismiss('error1')}
-                               {toast(error, {type: "error", toastId: 'error1'})}
+
+                               {toast(error, {type: "error", toastId: 'SOME ERROR OCCURED!'})}
                              
                                
                             </>
                         )}
                         {success && (
                             <>
-                                 {toast.dismiss('success1')}
-                                {toast(success, {type: "success", toastId:'success1'})}
+
+                                {toast(success, {type: "success", toastId:'EVENT COMPLETED'})}
                               
                             </>
                           
