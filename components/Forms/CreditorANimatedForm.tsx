@@ -44,8 +44,7 @@ export default function CreditorAnimatedFormDesign() {
 
     const handleClick = (e:any) => {
         e.preventDefault();
-        updateCreditor(token).then(data => {setValues({...values, success: data.message})});
-        setIsSubmitting(true);
+        updateCreditor(token).then(data => {setValues({...values, success: data.message}), setIsSubmitting(false);});
     }
 
     const handleSubmit = (e: any) => {

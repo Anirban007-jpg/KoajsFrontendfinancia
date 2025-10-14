@@ -51,8 +51,9 @@ export default function DebotrAnimatedFormDesign() {
 
     const handleClick = (e:any) => {
         e.preventDefault();
-        updateDebtor(token).then(data => {setValues({...values, success: data.message})});
         setIsSubmitting(true);
+        updateDebtor(token).then(data => {setValues({...values, success: data.message}), setIsSubmitting(false);});
+        
     }
 
     const handleSubmit = (e: any) => {
