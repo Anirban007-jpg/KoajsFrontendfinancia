@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Signup, isAuth } from '@/actions/auth';
 import { AlertCircle } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 // Defines the content for the single step of the form.
 const formContent = {
@@ -323,26 +324,22 @@ const AnimatedSingleStepForm = () => {
                         </button>
                     </motion.div>
                     {error && (
-                        <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-red-500 font-bold text-sm flex items-center gap-1"
-                        >
-                            <AlertCircle className="w-4 h-4" />
-                            {error}
-                        </motion.p>
-                    )}
-                    {/* {JSON.stringify(isAuth())} */}
-                    {success && (
-                        <motion.p
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-green-500 text-sm flex font-bold items-center gap-1"
-                        >
-                            <AlertCircle className="w-4 h-4" />
-                            {success}
-                        </motion.p>
-                    )}
+                            <>
+                                  {toast.dismiss('error1')}
+                               {toast(error, {type: "error", toastId: 'error1'})}
+                             
+                               
+                            </>
+                        )}
+                        {success && (
+                            <>
+                                 {toast.dismiss('success1')}
+                                {toast(success, {type: "success", toastId:'success1'})}
+                              
+                            </>
+                          
+                        )}
+              
                 </form>
             </motion.div>
         </div>

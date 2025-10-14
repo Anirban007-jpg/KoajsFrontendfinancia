@@ -8,6 +8,7 @@ import { getCookie, isAuth, signout } from "@/actions/auth";
 import { AlertCircle } from "lucide-react";
 // import { createLedger, getSpecificLedger } from "@/actions/ledger";
 import { createDebtor, updateDebtor } from "@/actions/debtor";
+import { toast } from "react-toastify";
 // import math from "mathjs";
 
 
@@ -297,25 +298,22 @@ export default function DebotrAnimatedFormDesign() {
                             )}
                         </motion.button>
                         {error && (
-                            <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 mt-6 font-bold text-sm flex items-center gap-1"
-                            >
-                                <AlertCircle className="w-4 h-4" />
-                                {error}
-                            </motion.p>
+                            <>
+                                  {toast.dismiss('error1')}
+                               {toast(error, {type: "error", toastId: 'error1'})}
+                             
+                               
+                            </>
                         )}
                         {success && (
-                            <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-green-500 text-sm mt-6 flex font-bold items-center gap-1"
-                            >
-                                <AlertCircle className="w-4 h-4" />
-                                {success}
-                            </motion.p>
+                            <>
+                                 {toast.dismiss('success1')}
+                                {toast(success, {type: "success", toastId:'success1'})}
+                              
+                            </>
+                          
                         )}
+
                     </motion.div>
 
                 </form>

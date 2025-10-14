@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 // import { useRouter } from "next/navigation";
 import { getCookie, isAuth, signout } from "@/actions/auth";
@@ -10,7 +10,7 @@ import { AlertCircle } from "lucide-react";
 import { createLedger, getLedger, updateLedger } from "@/actions/ledger";
 import { format, isSameDay } from "date-fns";
 
-
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 
 export default function AnimatedFormDesign() {
@@ -69,6 +69,7 @@ export default function AnimatedFormDesign() {
 
     }, [])
 
+    
     const handleSubmit = (e: any) => {
         e.preventDefault();
         setValues({ ...values, error: '' });
@@ -82,7 +83,7 @@ export default function AnimatedFormDesign() {
         }
         setIsSubmitting(true);
 
-        console.log(ledger)
+        // console.log(ledger)
 
         createLedger(ledger, token).then(data => {
             if (data.details) {
@@ -131,6 +132,7 @@ export default function AnimatedFormDesign() {
         },
     };
 
+    const notify = () => {toast.info('Creating Ledger')}
     return (
 
         <motion.div
@@ -139,7 +141,7 @@ export default function AnimatedFormDesign() {
             animate="visible"
             className="w-full max-w-2xl"
         >
-
+        
             <motion.div
                 className="backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl p-8 md:p-12 border border-white/20"
                 whileHover={{ scale: 1.01 }}
@@ -193,6 +195,8 @@ export default function AnimatedFormDesign() {
                             <motion.option value="Bank A/C">Bank</motion.option>
                             <motion.option value="Sales A/C">Sales</motion.option>
                             <motion.option value="Purchase A/C">Purchase</motion.option>
+                            <motion.option value="O/S Salary A/C">Outstanding Salary</motion.option>
+                            <motion.option value="O/S Expenses A/C">Outstanding Expense</motion.option>
                         </motion.select>
                     </motion.div>
 
@@ -314,6 +318,7 @@ export default function AnimatedFormDesign() {
                             whileTap={{ scale: 0.95 }}
                             type="submit"
                             disabled={isSubmitting}
+                            onClick={notify}
                             className="w-full py-4 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {isSubmitting ? (
@@ -334,24 +339,20 @@ export default function AnimatedFormDesign() {
                             )}
                         </motion.button>
                         {error && (
-                            <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-red-500 mt-6 font-bold text-sm flex items-center gap-1"
-                            >
-                                <AlertCircle className="w-4 h-4" />
-                                {error}
-                            </motion.p>
+                            <>
+                                  {toast.dismiss('error1')}
+                               {toast(error, {type: "error", toastId: 'error1'})}
+                             
+                               
+                            </>
                         )}
                         {success && (
-                            <motion.p
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="text-green-500 text-sm mt-6 flex font-bold items-center gap-1"
-                            >
-                                <AlertCircle className="w-4 h-4" />
-                                {success}
-                            </motion.p>
+                            <>
+                                 {toast.dismiss('success1')}
+                                {toast(success, {type: "success", toastId:'success1'})}
+                              
+                            </>
+                          
                         )}
                     </motion.div>
 
