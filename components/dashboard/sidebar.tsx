@@ -34,6 +34,7 @@ const navigation = [
   { name: "Debtor Management" , href: "/company/debtor", icon:Book, current: true },
   { name: "Creditor Management", href: "/company/creditor", icon:Book, current: true },
   { name: "Asset Management", href: "/company/asset", icon:Book, current: true },
+  { name: "Bank Management", href: "/company/bank", icon:Book, current: true },
  
 
 ];
