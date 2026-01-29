@@ -42,10 +42,10 @@ export default function BankFormDesign() {
         setValues({ ...values, error: '', [name]: e.target.value })
     }
 
-    const handleClick = (e:any) => {
+    const handleClick = (e: any) => {
         e.preventDefault();
         setIsSubmitting(true);
-        updateCreditor(token).then(data => {setValues({...values, error: '', success: data.message}), setIsSubmitting(false);});
+        updateCreditor(token).then(data => { setValues({ ...values, error: '', success: data.message }), setIsSubmitting(false); });
     }
 
     const handleSubmit = (e: any) => {
@@ -190,7 +190,7 @@ export default function BankFormDesign() {
                                 className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
 
                             >
-                                
+
                             </motion.input>
 
                         </motion.div>
@@ -211,9 +211,9 @@ export default function BankFormDesign() {
                             value={Creditor_email}
                             onChange={handleChangeInput("Creditor_email")}
                             className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-black placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
-                            
+
                         >
-                            
+
                         </motion.input>
 
 
@@ -238,7 +238,7 @@ export default function BankFormDesign() {
 
 
                     </motion.div>
-                   
+
                     <motion.div variants={itemVariants}>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -291,19 +291,19 @@ export default function BankFormDesign() {
                         </motion.button>
                         {error && (
                             <>
-                  
-                               {toast(error, {type: "error",  toastId: 'SOME ERROR OCCURED!'})}
-                             
-                               
+
+                                {toast(error, { type: "error", toastId: 'SOME ERROR OCCURED!' })}
+
+
                             </>
                         )}
                         {success && (
                             <>
-                      
-                                {toast(success, {type: "success",  toastId:'EVENT COMPLETED'})}
-                              
+
+                                {toast(success, { type: "success", toastId: 'EVENT COMPLETED' })}
+
                             </>
-                          
+
                         )}
                     </motion.div>
 
